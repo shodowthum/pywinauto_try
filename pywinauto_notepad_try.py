@@ -41,20 +41,25 @@ app = application.Application()
 program_path = r"C:\WINDOWS\system32\notepad.exe"
 file_path = r"F:\python_control_Text.txt"
 
-# Start Notepad from path example
+# Read existing notepad from path example
 app = Application().start(r'{} "{}"'.format(program_path, file_path))
 
 app.UntitledNotepad.draw_outline()
 
 app.UntitledNotepad.menu_select("Edit -> Replace")
+# read Notepad interface had what.
 app.Replace.print_control_identifiers()
 
 app.Replace.edit.set_text("OKOK")
 app.Replace.edit2.set_text("Test")
 # app.Replace.button1.click()
-# app.Replace.ReplaceAll.click()
+
+
+# Replace Text for ReplaceAll Button
+app.Replace.ReplaceAll.click()
+
+# Replace Text for Replace button.
 app.Replace.Replace.click()
-time.sleep(3)
 app.Replace.Replace.click()
 
 # print("edit " + str(app.Replace.Edit))
