@@ -38,29 +38,73 @@ app = application.Application()
 # app.start("Notepad.exe")
 # app.start()
 
+
+# Notepad Path and Exe
 program_path = r"C:\WINDOWS\system32\notepad.exe"
 file_path = r"F:\python_control_Text.txt"
 
 # Read existing notepad from path example
-app = Application().start(r'{} "{}"'.format(program_path, file_path))
+app = Application(backend="win32").start(r'{} "{}"'.format(program_path, file_path))
 
-app.UntitledNotepad.draw_outline()
+app.UntitledNotepad.draw_outline()  # Cannot use in backend="uia"
 
 app.UntitledNotepad.menu_select("Edit -> Replace")
-# read Notepad interface had what.
+
+# read Notepad interface have what.
 app.Replace.print_control_identifiers()
 
+#Edit box insert some texts
 app.Replace.edit.set_text("OKOK")
 app.Replace.edit2.set_text("Test")
-# app.Replace.button1.click()
 
+# Click Find Next Button
+app.Replace.FindNext.click()
+time.sleep(1)
+app.Replace.FindNext.click()
 
-# Replace Text for ReplaceAll Button
+# insert  some text
+app.UntiledNotepad.Edit.type_keys("OKOK      OKOK OKOK", with_spaces=True)  # spacing in
+# Click Home Buttong at Notepad, set cursor back to front for searching purpose
+app.UntitledNotepad.Edit.type_keys('{VK_HOME}')
+
+# Click Replace button.
+app.Replace.Replace.click()
+app.Replace.Replace.click()
+
+app.Replace.edit.set_text("Test")
+app.Replace.edit2.set_text("OKOK")
+
+app.Replace.CheckBox0.check()
+time.sleep(2)
+# get properties of the item
+print("This is check get details : %s", app.Replace.CheckBox0.get_properties())
+print("This is check getcheckstate details : ", app.Replace.CheckBox0.get_check_state())
+
+app.Replace.CheckBox0.uncheck()
+time.sleep(2)
+print("This is uncheck get details : %s", app.Replace.CheckBox0.get_properties())
+print("This is uncheck getcheckstate details : ", app.Replace.CheckBox0.get_check_state())
+time.sleep(3)
+
+app.UntitledNotepad.Edit.type_keys('{VK_HOME}')
+
+# Click ReplaceAll Button
 app.Replace.ReplaceAll.click()
+time.sleep(2)
+# Click Cancel Button
+app.Replace.Cancel.click()
 
-# Replace Text for Replace button.
-app.Replace.Replace.click()
-app.Replace.Replace.click()
+app.UntiledNotepad.Edit.type_keys('{ENTER}')
+app.UntiledNotepad.Edit.type_keys('{ENTER}')
+
+time.sleep(5)
+
+# Type Alt +F4 to close application
+app.UntiledNotepad.type_keys("%{F4}")  # Alt-F4
+app.Notepad.DontSave.click()
+
+
+
 
 # print("edit " + str(app.Replace.Edit))
 # print("edit0 " + str(app.Replace.Edit0))
