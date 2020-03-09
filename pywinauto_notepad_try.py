@@ -32,6 +32,23 @@ import time
 
 
 #############################################
+
+# another method for open file
+# from pywinauto.application import Application
+# import time
+# import ctypes
+# app = Application().Start(cmd_line=u'"path of the application (.exe)" ')
+# window = app.Dialog
+# window.Wait('ready')
+# button = window.Button
+# button.Click()
+# button2 = window.Button10
+# button2.Click()
+# app.Open.edit.SetText("Hello.txt")
+# time.sleep(2)
+# app.Open.Open.click_input()
+
+#############################################
 from pywinauto import application
 
 app = application.Application()
@@ -53,8 +70,12 @@ app.UntitledNotepad.menu_select("Edit -> Replace")
 # read Notepad interface have what.
 app.Replace.print_control_identifiers()
 
+# app.findDialog("title =Replace")
+
+
 #Edit box insert some texts
 app.Replace.edit.set_text("OKOK")
+time.sleep(2)
 app.Replace.edit2.set_text("Test")
 
 # Click Find Next Button
@@ -75,33 +96,57 @@ app.Replace.edit.set_text("Test")
 app.Replace.edit2.set_text("OKOK")
 
 app.Replace.CheckBox0.check()
-time.sleep(2)
 # get properties of the item
 print("This is check get details : %s", app.Replace.CheckBox0.get_properties())
 print("This is check getcheckstate details : ", app.Replace.CheckBox0.get_check_state())
 
 app.Replace.CheckBox0.uncheck()
-time.sleep(2)
+time.sleep(1)
 print("This is uncheck get details : %s", app.Replace.CheckBox0.get_properties())
 print("This is uncheck getcheckstate details : ", app.Replace.CheckBox0.get_check_state())
-time.sleep(3)
+time.sleep(1)
 
 app.UntitledNotepad.Edit.type_keys('{VK_HOME}')
 
 # Click ReplaceAll Button
 app.Replace.ReplaceAll.click()
-time.sleep(2)
+time.sleep(1)
 # Click Cancel Button
 app.Replace.Cancel.click()
 
 app.UntiledNotepad.Edit.type_keys('{ENTER}')
 app.UntiledNotepad.Edit.type_keys('{ENTER}')
 
-time.sleep(5)
+time.sleep(1)
+
+app.UntitledNotepad.menu_select("Format -> Font")
+app.Font.print_control_identifiers()
+app.Font.ComboBox0.select("Harrington")
+time.sleep(2)
+app.Font.FontComboBox.select("Cooper")  # FontComboBox was ComboBox0
+time.sleep(2)
+app.Font.ComboBox2.select("Black Oblique")
+time.sleep(2)
+app.Font.ComboBox3.select("11")
+
+# app.findDialog("title =Replace")
+
+
+# #Edit box insert some texts
+# app.Replace.edit.set_text("OKOK")
+# time.sleep(2)
+# app.Replace.edit2.set_text("Test")
+
+
+
+
 
 # Type Alt +F4 to close application
-app.UntiledNotepad.type_keys("%{F4}")  # Alt-F4
-app.Notepad.DontSave.click()
+# app.UntiledNotepad.type_keys("%{F4}")  # Alt-F4
+# app.Notepad.DontSave.click()
+
+
+
 
 
 
